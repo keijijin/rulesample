@@ -1,0 +1,9 @@
+com/sample/fact/Contract.class
+com/sample/fact/ChildWorkFact.class
+com/sample/DecisionTableTest.class
+com/sample/DroolsTest.class
+com/sample/DecisionTableTest$Message.class
+com/sample/DroolsTest$Message.class
+com/sample/fact/ChildFact.class
+com/sample/fact/RootFact.class
+com/sample/ProcessTest.class

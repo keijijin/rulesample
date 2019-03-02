@@ -1,0 +1,27 @@
+package com.sample
+ 
+import com.sample.fact.RootFact;
+import com.sample.fact.ChildFact;
+import com.sample.fact.ChildWorkFact;
+import com.sample.fact.Contract;
+ 
+rule "Sort Rule"
+    when
+        $fact : RootFact()
+        $child : ChildFact ($id : id, $amount : amount, $list : contractList) from $fact.childFactList
+        $childWork : ChildWorkFact ($id == id, amount == 0) from $fact.childWorkFactList
+		$minDate : Integer() from accumulate (
+			Contract($date : date) from $list,
+			min($date)
+		)
+		$minNum : Integer() from accumulate (
+			Contract($num : number, $minDate == date) from $list,
+			min($num)
+		)
+    then
+    	$childWork.setAmount($child.getAmount());
+    	$childWork.setMinDate($minDate);
+    	$childWork.setMinNumber($minNum);
+    	$fact.getChildSortFactList().add($childWork);
+        update( $fact );
+end
